@@ -1,25 +1,43 @@
 package service
 
 import (
+	"net/http"
+
+	rice "github.com/GeertJohan/go.rice"
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
+	"github.com/mct-dev/lifehub/config"
 )
 
 // Server an Echo web server
 type Server struct {
 	// Echo Server
 	*echo.Echo
+
+	// Config
+	config *config.Config
+
+	// Middleware
+
+	// Route Groups
+	api *echo.Group
 }
 
 // Init create an Echo server with middleware, ui, routes
-func Init() *Server {
-	server := &Server{}
+func Init(config *config.Config) *Server {
+	server := &Server{
+		config: config,
+	}
 	server.initEcho()
 	server.initMiddleware()
-
-	e.GET("/", home)
+	server.initUI()
 
 	return server
+}
+
+// Start start the Echo server
+func (s *Server) Start() {
+	s.Logger.Fatal(s.Echo.Start(":1323"))
 }
 
 func (s *Server) initEcho() {
@@ -30,10 +48,28 @@ func (s *Server) initEcho() {
 }
 
 func (s *Server) initMiddleware() {
-	s.Echo.Use(echoMiddleware.Logger())
+	s.Use(echoMiddleware.Logger())
 }
 
-// Start start the Echo server
-func (s *Server) Start() {
-	s.Echo.Logger.Fatal(s.Echo.Start(":1323"))
+func (s *Server) initUI() {
+	// loadUI := s.config.Env == "production"
+	// defer logStatus("UI", loadUI)
+
+	// if !loadUI {
+	// 	return
+	// }
+
+	uiAssets, err := rice.FindBox("../ui/dist")
+	if err != nil {
+		panic("Static ui/dist folder not found. Build it with `cd ui && yarn build`.")
+	}
+
+	assetHandler := http.FileServer(uiAssets.HTTPBox())
+	s.GET("/", echo.WrapHandler(assetHandler))
+	s.GET("/favicon*", echo.WrapHandler(assetHandler))
+	s.GET("/css/*", echo.WrapHandler(http.StripPrefix("/", assetHandler)))
+	s.GET("/js/*", echo.WrapHandler(http.StripPrefix("/", assetHandler)))
+	s.GET("/fonts/*", echo.WrapHandler(http.StripPrefix("/", assetHandler)))
+	s.GET("/img/*", echo.WrapHandler(http.StripPrefix("/", assetHandler)))
+
 }
