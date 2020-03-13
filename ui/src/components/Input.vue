@@ -1,10 +1,10 @@
 <template>
   <div class="input">
     <input
+      ref="commandInput"
       @keydown="handleKeydown"
       v-model="msg"
       placeholder="Enter command..."
-      autofocus
     />
   </div>
 </template>
@@ -18,10 +18,13 @@ export default class Input extends Vue {
   msg = 'wow'
 
   handleKeydown = (ev: KeyboardEvent) => {
-    console.log('input key', ev.key)
     if (ev.key === 'Escape') {
       this.$store.commit(SET_IS_ACCEPTING_COMMAND, true)
     }
+  }
+
+  mounted () {
+    (this.$refs.commandInput as HTMLInputElement).focus()
   }
 }
 </script>

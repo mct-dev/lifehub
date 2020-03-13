@@ -57,12 +57,12 @@ export default class KeyHandler extends Vue {
     }
   }
 
-  mounted() {
+  mounted () {
     document.addEventListener('keydown', this.handleKeydown)
     document.addEventListener('keyup', this.handleKeyup)
   }
 
-  beforeDestroy() {
+  beforeDestroy () {
     document.removeEventListener('keydown', this.handleKeydown)
     document.removeEventListener('keyup', this.handleKeyup)
   }
