@@ -1,31 +1,62 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <CommandHandler />
+    <router-view />
   </div>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import CommandHandler from '@/components/CommandHandler.vue'
+
+@Component({
+  components: {
+    CommandHandler
+  }
+})
+export default class App extends Vue {}
+</script>
+
 <style lang="scss">
+html, body {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+}
+
+// ---- UTILITY ---- //
+.flex {
+  &-center {
+    display: flex;
+    justify-content: center;
+    &--column {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+// ---- APP ---- //
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  .home {
+    &__container {
+      height: 100vh;
     }
   }
 }

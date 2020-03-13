@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home__container flex-center--column">
+    <Info />
+    <Input v-if="!isAcceptingCommand" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { Component, Vue } from 'vue-property-decorator'
+import Input from '@/components/Input.vue'
+import Info from '@/components/Info.vue'
+import { mapState } from 'vuex'
 
-export default {
-  name: 'Home',
+@Component({
   components: {
-    HelloWorld
+    Input,
+    Info
+  },
+  computed: {
+    ...mapState(['isAcceptingCommand'])
   }
-}
+})
+export default class Home extends Vue {}
 </script>

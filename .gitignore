@@ -7,3 +7,6 @@ binaries
 
 # debug
 __debug_bin
+
+# editor files
+.vscode
