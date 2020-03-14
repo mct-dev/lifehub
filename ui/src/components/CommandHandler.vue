@@ -6,7 +6,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import {
   SET_USER_COMMAND_KEYS,
-  SET_IS_ACCEPTING_COMMAND
+  SET_SHOW_COMMAND_INPUT
 } from '../store/mutation-types'
 
 @Component
@@ -20,7 +20,7 @@ export default class KeyHandler extends Vue {
     if (ev.key === 'Escape') {
       this.keyBuffer = []
       this.$store.commit(SET_USER_COMMAND_KEYS, this.keyBuffer)
-      this.$store.commit(SET_IS_ACCEPTING_COMMAND, true)
+      this.$store.commit(SET_SHOW_COMMAND_INPUT, false)
       return
     }
 

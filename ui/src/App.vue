@@ -22,6 +22,7 @@ html, body {
   padding: 0;
   margin: 0;
   font-size: 10px;
+  background-color: #eee;
 }
 
 // ---- UTILITY ---- //

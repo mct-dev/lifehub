@@ -1,7 +1,7 @@
 <template>
   <div class="home__container flex-center--column">
     <Info />
-    <Input v-if="!isAcceptingCommand" />
+    <Input :isOpen="showCommandInput" />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import { mapState } from 'vuex'
     Info
   },
   computed: {
-    ...mapState(['isAcceptingCommand'])
+    ...mapState(['showCommandInput'])
   }
 })
 export default class Home extends Vue {}
