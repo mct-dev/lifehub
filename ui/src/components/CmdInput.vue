@@ -14,7 +14,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { SET_SHOW_COMMAND_INPUT } from '../store/mutation-types'
 
 @Component({})
-export default class Input extends Vue {
+export default class CmdInput extends Vue {
   @Prop() isOpen!: boolean;
   cmd = ''
 
@@ -64,6 +64,7 @@ export default class Input extends Vue {
   top: 0;
   width: 100vw;
   opacity: 0;
+  transition: opacity .3s ease-out;
 
   input {
     background: transparent;
@@ -77,7 +78,7 @@ export default class Input extends Vue {
 
   &.open {
     opacity: 1;
-    transition: opacity .3s ease-in;
+    transition: opacity .2s ease-in;
   }
 }
 </style>

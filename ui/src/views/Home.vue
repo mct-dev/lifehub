@@ -1,19 +1,19 @@
 <template>
   <div class="home__container flex-center--column">
     <Info />
-    <Input :isOpen="showCommandInput" />
+    <CmdInput :isOpen="showCommandInput" />
   </div>
 </template>
 
 <script>
 import { Component, Vue } from 'vue-property-decorator'
-import Input from '@/components/Input.vue'
+import CmdInput from '@/components/CmdInput.vue'
 import Info from '@/components/Info.vue'
 import { mapState } from 'vuex'
 
 @Component({
   components: {
-    Input,
+    CmdInput,
     Info
   },
   computed: {
