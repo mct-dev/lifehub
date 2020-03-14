@@ -19,8 +19,8 @@ export default class Input extends Vue {
   cmd = ''
 
   handleKeydown = (ev: KeyboardEvent) => {
-    const alphaChars = ' abcdefghijklmnopqrstuvwxyz0123456789'
-    const isAlphaNumeric = alphaChars.includes(ev.key)
+    const alphaNumChars = ' abcdefghijklmnopqrstuvwxyz0123456789'
+    const isAlphaNumeric = alphaNumChars.includes(ev.key)
 
     if (isAlphaNumeric) {
       this.cmd += ev.key
@@ -32,7 +32,7 @@ export default class Input extends Vue {
         this.$store.commit(SET_SHOW_COMMAND_INPUT, false)
         break
       case 'Enter':
-        console.log('command is: ', this.cmd);
+        this.$store.commit(SET_SHOW_COMMAND_INPUT, false);
         (this.$refs.commandInput as HTMLInputElement).value = ''
         this.cmd = ''
         break
@@ -54,7 +54,7 @@ export default class Input extends Vue {
 <style scoped lang="scss">
 .input {
   align-items: center;
-  background: rgb(243, 243, 243);
+  background: rgb(255, 255, 255);
   border-radius: 10px;
   display: flex;
   height: 100vh;
@@ -66,12 +66,13 @@ export default class Input extends Vue {
   opacity: 0;
 
   input {
-    padding: 20px;
-    width: 80%;
-    outline: none;
-    border: 1px solid #eee;
-    border-radius: 2px;
+    background: transparent;
+    border-radius: 5px;
+    border: 3px solid #eee;
     font-size: 2.5rem;
+    outline: none;
+    padding: 30px 20px;
+    width: 80%;
   }
 
   &.open {
