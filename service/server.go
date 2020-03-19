@@ -31,6 +31,7 @@ func Init(config *config.Config) *Server {
 	server.initEcho()
 	server.initMiddleware()
 	server.initUI()
+	server.initApis()
 
 	return server
 }
@@ -59,7 +60,11 @@ func (s *Server) initUI() {
 	// 	return
 	// }
 
-	uiAssets, err := rice.FindBox("../ui/dist")
+	riceConfig := rice.Config{
+		LocateOrder: []rice.LocateMethod{rice.LocateEmbedded},
+	}
+
+	uiAssets, err := riceConfig.FindBox("../ui/dist")
 	if err != nil {
 		panic("Static ui/dist folder not found. Build it with `cd ui && yarn build`.")
 	}

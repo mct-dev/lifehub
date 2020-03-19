@@ -13,7 +13,7 @@ export default new Vuex.Store({
     debug: true,
     debugInfo: '',
     userCommandKeys: [] as string[],
-    showCommandInput: true
+    showCommandInput: false
   },
   mutations: {
     [SET_DEBUG_INFO] (state, newValue: string) {
