@@ -1,12 +1,15 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/gommon/color"
 	"github.com/mct-dev/lifehub/config"
+	"github.com/mct-dev/lifehub/models"
 )
 
 // Server an Echo web server
@@ -21,6 +24,8 @@ type Server struct {
 
 	// Route Groups
 	api *echo.Group
+
+	db models.Datastore
 }
 
 // Init create an Echo server with middleware, ui, routes
@@ -32,6 +37,7 @@ func Init(config *config.Config) *Server {
 	server.initMiddleware()
 	server.initUI()
 	server.initApis()
+	server.initDB()
 
 	return server
 }
@@ -53,12 +59,12 @@ func (s *Server) initMiddleware() {
 }
 
 func (s *Server) initUI() {
-	// loadUI := s.config.Env == "production"
-	// defer logStatus("UI", loadUI)
+	loadUI := s.config.Env == "production"
+	defer logStatus("Embeded UI", loadUI)
 
-	// if !loadUI {
-	// 	return
-	// }
+	if !loadUI {
+		return
+	}
 
 	riceConfig := rice.Config{
 		LocateOrder: []rice.LocateMethod{rice.LocateEmbedded},
@@ -77,4 +83,21 @@ func (s *Server) initUI() {
 	s.GET("/fonts/*", echo.WrapHandler(http.StripPrefix("/", assetHandler)))
 	s.GET("/img/*", echo.WrapHandler(http.StripPrefix("/", assetHandler)))
 
+}
+
+func (s *Server) initDB() {
+	db, err := models.NewDB(s.config.DbURI)
+	if err != nil {
+		panic(err)
+	}
+
+	s.db = db
+}
+
+func logStatus(name interface{}, enabled bool) {
+	status := color.Green("enabled")
+	if !enabled {
+		status = color.Red("disabled")
+	}
+	fmt.Printf("⇨ %s: %s\n", name, status)
 }

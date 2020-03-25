@@ -10,3 +10,6 @@ __debug_bin
 
 # editor files
 .vscode
+
+# database temp files
+.data

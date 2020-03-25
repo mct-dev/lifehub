@@ -15,5 +15,10 @@ package-docker: build-linux
 	docker build -t lifehub:1.0.0 .
 
 # ======== RUN =========
-run:
-	@./scripts/run/run.sh
+run: run-go
+
+run-go: run-db
+	go run lifehub.go
+
+run-db:
+	docker-compose up -d
