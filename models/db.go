@@ -10,8 +10,8 @@ import (
 
 // Datastore is the interface which should be implemented by DB.
 type Datastore interface {
-	AllEvents() ([]Event, error)
-	AddEvent(*Event) error
+	AllEvents() ([]EventDocument, error)
+	AddEvent(*NewEvent) error
 }
 
 // DB is a general abstraction for your database client
