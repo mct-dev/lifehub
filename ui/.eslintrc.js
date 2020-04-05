@@ -1,18 +1,27 @@
 module.exports = {
-  root: true,
   env: {
-    node: true
+    browser: true,
+    es6: true
   },
   extends: [
-    'plugin:vue/essential',
-    '@vue/standard',
-    '@vue/typescript/recommended'
+    'plugin:react/recommended',
+    'standard'
   ],
-  parserOptions: {
-    ecmaVersion: 2020
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module'
+  },
+  plugins: [
+    'react'
+  ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'react/react-in-jsx-scope': 'off'
   }
 }
