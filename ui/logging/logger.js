@@ -1,3 +1,6 @@
-export function log (value) {
-  console.log(value)
+/**
+ * @param  {...any} values
+ */
+export function log (...values) {
+  console.log(...values)
 }

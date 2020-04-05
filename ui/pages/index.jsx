@@ -9,9 +9,9 @@ export default function IndexPage () {
         <Link href="/dashboard"><a title="Dashboard">Dashboard</a></Link>
       </nav>
       <h1>Home page</h1>
-      <Modal>
+      {/* <Modal>
         <CommandInput />
-      </Modal>
+      </Modal> */}
     </div>
   )
 }

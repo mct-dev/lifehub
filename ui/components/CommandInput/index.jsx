@@ -1,9 +1,9 @@
 import Input from '../Input'
-import { handleCommand } from '../../commands/parse'
+import { handleCommand } from '../../commands/handler'
 
 const CommandInput = () => {
   const handleChange = (e) => {
-    handleCommand(e.target.value)
+    handleCommand(e.target.value.trim())
   }
 
   return (

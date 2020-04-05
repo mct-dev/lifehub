@@ -7,7 +7,7 @@ export function handleCommand (command) {
     case Prefixes.Navigate:
       return handleNavigateCommand(command.slice(1))
     default:
-      console.log(command)
+      log(command)
   }
 }
 
